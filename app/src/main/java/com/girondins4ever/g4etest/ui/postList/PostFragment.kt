@@ -1,5 +1,6 @@
 package com.girondins4ever.g4etest.ui.postList
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.girondins4ever.g4etest.R
+import com.girondins4ever.g4etest.services.post.PostService
 import com.girondins4ever.g4etest.ui.postList.dummy.DummyContent
 
 /**
@@ -17,6 +19,8 @@ import com.girondins4ever.g4etest.ui.postList.dummy.DummyContent
 class PostFragment : Fragment() {
 
     private var columnCount = 1
+    private val postService =  PostService()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,7 @@ class PostFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
+
     }
 
     override fun onCreateView(
@@ -43,6 +48,12 @@ class PostFragment : Fragment() {
             }
         }
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        postService.setContext(context)
+        postService.fetchPosts()
     }
 
     companion object {
