@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context=".ui.postDetails.postDetails">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00BA2727"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/post_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text='Nicolas Paolorsi: "Ca lui fait vraiment du bien d’aller en équipe de france"' />
+
+        <TextView
+            android:id="@+id/post_details_meta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:typeface="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:text="Par mike, samedi 14 novembre à 16:00" />
+
+        <TextView
+            android:id="@+id/post_details_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:text="Nicolas Paolorsi a évoqué le fait que le gardien des Girondins, Benoit Costil, ait été appelé au sein de la sélection nationale française lors de la trêve internationale. “À Bordeaux, tout va mal mais heureusement Benoît Costil est en équipe de France. Ça, ça fait du bien à tout le monde et surtout à Costil, qui fait partie de ces cadres qui sont un peu au fond du seau. Ça lui fait vraiment du bien de retrouver une place chez les Bleus. Il est devenu numéro 4. Il a pris la place d’Aréola. En cas de blessure, il a vraiment des chances d’aller à l’Euro. Une petite stat sur Benoît Costil, depuis 2010, c’est le meilleur gardien d’Europe dans l’exercice des pénaltys. Il en a sorti 16 sur les 54 qui ont été tirés sur lui. C’est plutôt une belle stat, devant tous les cadors européens”." />
+
+    </LinearLayout>
+
+</ScrollView>

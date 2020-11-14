@@ -14,7 +14,8 @@ fun parseHtmlToString(value: String): String {
            value, Html.FROM_HTML_MODE_LEGACY
        ).toString()
     }
-    return Html.fromHtml(value).toString()
+    return ""
+    // return Html.fromHtml(value).toString()
 }
 
 class PostService {
@@ -47,6 +48,10 @@ class PostService {
                                     ),
                                     parseHtmlToString(
                                         post.getJSONObject("excerpt")
+                                            .getString("rendered")
+                                    ),
+                                    parseHtmlToString(
+                                        post.getJSONObject("content")
                                             .getString("rendered")
                                     )
                                 )

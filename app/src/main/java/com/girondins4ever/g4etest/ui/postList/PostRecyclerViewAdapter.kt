@@ -4,14 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.girondins4ever.g4etest.R
-import com.girondins4ever.g4etest.ui.postList.dummy.DummyContent.DummyItem
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class PostRecyclerViewAdapter(
     private val values: List<Post>
 ) : RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>() {
@@ -27,8 +23,11 @@ class PostRecyclerViewAdapter(
         holder.date.text = item.date
         holder.title.text = item.title
         holder.preview.text = item.preview
+        holder.itemView.setOnClickListener {
+            val action = PostFragmentDirections.actionNavigationNewsToPostDetails()
+            it.findNavController().navigate(action)
+        }
     }
-
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

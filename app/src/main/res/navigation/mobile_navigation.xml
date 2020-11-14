@@ -9,7 +9,11 @@
         android:id="@+id/navigation_news"
         android:name="com.girondins4ever.g4etest.ui.postList.PostFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_post_list" />
+        tools:layout="@layout/fragment_post_list" >
+        <action
+            android:id="@+id/action_navigation_news_to_postDetails"
+            app:destination="@id/postDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +26,8 @@
         android:name="com.girondins4ever.g4etest.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/postDetails"
+        android:name="com.girondins4ever.g4etest.ui.postDetails.PostDetails"
+        android:label="PostDetails" />
 </navigation>
