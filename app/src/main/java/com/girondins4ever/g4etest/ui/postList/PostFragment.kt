@@ -1,17 +1,18 @@
 package com.girondins4ever.g4etest.ui.postList
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.girondins4ever.g4etest.R
 import com.girondins4ever.g4etest.services.post.PostService
-import com.girondins4ever.g4etest.ui.postList.dummy.DummyContent
 
 /**
  * A fragment representing a list of Items.
@@ -20,7 +21,8 @@ class PostFragment : Fragment() {
 
     private var columnCount = 1
     private val postService =  PostService()
-
+    private var postList: MutableList<Post> = ArrayList()
+    private var mAdapter = PostRecyclerViewAdapter(postList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,16 +46,22 @@ class PostFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyPostRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = mAdapter
             }
         }
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onAttach(context: Context) {
         super.onAttach(context)
         postService.setContext(context)
-        postService.fetchPosts()
+        postService.fetchPosts {
+            for (p in it) {
+                postList.add(p)
+            }
+            mAdapter.notifyDataSetChanged()
+        }
     }
 
     companion object {

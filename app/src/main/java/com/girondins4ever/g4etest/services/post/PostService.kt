@@ -1,9 +1,21 @@
 package com.girondins4ever.g4etest.services.post
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
 import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.JsonArrayRequest
 import com.girondins4ever.g4etest.services.RequestSingleton
+import com.girondins4ever.g4etest.ui.postList.Post
+
+fun parseHtmlToString(value: String): String {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+       return Html.fromHtml(
+           value, Html.FROM_HTML_MODE_LEGACY
+       ).toString()
+    }
+    return Html.fromHtml(value).toString()
+}
 
 class PostService {
     private var c: Context? = null
@@ -14,15 +26,34 @@ class PostService {
         c = context
     }
 
-    fun fetchPosts() {
+    fun fetchPosts(callback: (MutableList<Post>) -> Unit) {
         if (c === null) {
             throw Exception("PostService needs a context to run requests")
         } else {
-            val request = StringRequest(
-                Request.Method.GET, url,
+            val request = JsonArrayRequest(
+                Request.Method.GET, url, null,
                 { response ->
                     try {
-                        println(response.toString())
+                        val arr = ArrayList<Post>()
+                        for (i in 0 until response.length()) {
+                            val post = response.getJSONObject(i)
+                            arr.add(
+                                Post(
+                                    post.getString("id"),
+                                    post.getString("date"),
+                                    parseHtmlToString(
+                                        post.getJSONObject("title")
+                                            .getString("rendered"),
+                                    ),
+                                    parseHtmlToString(
+                                        post.getJSONObject("excerpt")
+                                            .getString("rendered")
+                                    )
+                                )
+                            )
+                        }
+                        println(arr)
+                        callback(arr)
                     } catch (e: Exception) {
                         throw Exception(e)
                     }
